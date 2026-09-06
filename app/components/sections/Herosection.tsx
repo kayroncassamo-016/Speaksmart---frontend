@@ -115,9 +115,11 @@ export function HeroSection() {
 
         {/* Sub */}
         <motion.p
-          className="text-white/40 text-[1.05rem] max-w-[460px] leading-[1.75] font-light mb-10"
+          className="text-white/40 text-[0.95rem] sm:text-xl md:text-2xl
+           max-w-[460px] leading-[1.75] font-light mb-10 text-center"
         >
           Build your confidence, not just vocabulary with <span className="text-[#f97316] font-bold">SpeakSmart</span> app.
+          <br className="hidden sm:block" />{" "}
           Stop second-guessing yourself and start trusting the English you already know.
         </motion.p>
 

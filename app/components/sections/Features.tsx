@@ -10,9 +10,9 @@ const features = [
         <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
       </svg>
     ),
-    title: "Instant AI Feedback",
+    title: "Instant Feedback",
     description:
-      "Get an instant breakdown of your answer within seconds. No waiting, no guessing — know exactly where you stand.",
+      "Get an instant breakdown of all your answers within seconds. Know right away what you should have spoken better.",
     tag: "Core",
     featured: true,
   },
@@ -25,7 +25,9 @@ const features = [
     ),
     title: "Performance Score (0–100)",
     description:
-      "Scored on clarity, confidence, and technical precision. Track your numbers and watch them climb.",
+      "Scored on clarity, confidence, and technical precision. If you freezed or grammatically messed up, your score will reflect that "+
+       
+       " and you'll be able to track your  score numbers and watch them increase or decrease over time.",
     tag: "Analytics",
   },
   {
@@ -34,9 +36,10 @@ const features = [
         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
       </svg>
     ),
-    title: "Real Interview Questions",
+    title: "Real-World Scenarios",
     description:
-      "Practice with questions pulled from top companies — FAANG, startups, and everything in between.",
+      "Practice real and random situations such as job interviews, meetings "+
+      "restaurants, networking, medical appointments, and more.",
     tag: "Questions",
   },
   {
@@ -45,9 +48,11 @@ const features = [
         <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
       </svg>
     ),
-    title: "Track Your Growth",
+    title: "Track Your Confidence",
     description:
-      "See your confidence and accuracy improve over time with detailed progress charts and session history.",
+      " Track your confidence, fluency, and reduction of hesitations" +
+      " (“uh”, “um”) with clear scores over time. " +
+      " See detailed progress charts and session history.",
     tag: "Progress",
   },
   {
@@ -56,9 +61,10 @@ const features = [
         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
       </svg>
     ),
-    title: "Personalized AI Coach",
+    title: "Real-Time Dual Coaching",
     description:
-      "Tailored advice based on your experience level, target role, and specific weak points.",
+      "Speak with a conversation partner while a " +
+      "patient AI coach corrects and guides you at the same time, all in real time.",
     tag: "Coaching",
   },
   {
@@ -70,7 +76,7 @@ const features = [
     ),
     title: "Hidden Transcript Mode",
     description:
-      "You never see what you said — forcing you to perform under real pressure, just like the actual interview.",
+      "You never see what you said thus forcing you to perform under real pressure, just like an actual conversation.",
     tag: "Mode",
   },
 ];
@@ -104,8 +110,8 @@ export function Features() {
               Features
             </p>
             <h2 className="text-[clamp(1.9rem,3.8vw,3rem)] font-extrabold text-white leading-[1.1] tracking-[-0.025em] max-w-[600px]">
-              Everything you need to ace your{" "}
-              <span className="text-[#f97316]">next interview</span>
+              Everything you need to speak{" "}
+              <span className="text-[#f97316]">confidently</span>
             </h2>
           </div>
           <a
@@ -143,7 +149,8 @@ export function Features() {
               <h3 className="text-white font-semibold text-[0.95rem] mb-2 tracking-tight leading-snug">
                 {f.title}
               </h3>
-              <p className="text-white/40 text-[0.82rem] leading-[1.7] font-light">
+              <p className="text-white/40 text-[0.82rem] sm:text-[1.15rem]
+               leading-[1.7] font-light">
                 {f.description}
               </p>
 

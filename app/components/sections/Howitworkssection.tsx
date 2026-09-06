@@ -128,7 +128,7 @@ export function HowItWorksSection() {
               <h3 className="text-white font-semibold text-[1.05rem] mb-2 tracking-tight">
                 {step.title}
               </h3>
-              <p className="text-white/40 text-[0.85rem] leading-[1.7] font-light">
+              <p className="text-white/40 text-[0.85rem] sm:text-[1.15rem] leading-[1.7] font-light">
                 {step.description}
               </p>
 

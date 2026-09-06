@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { LoginDialog } from "./LoginDialog";
+import Image from "next/image";
+import logo from "../logo/speaksmart.png";
 
 const links = ["How It Works", "Features", "Pricing", "Results"];
 
@@ -21,12 +23,19 @@ const [openLoginDialog, setOpenLoginDialog] = useState(false);
     
       {/* Logo */}
       <div className="flex items-center gap-2.5">
-        <div className="w-[34px] h-[34px] rounded-[10px] bg-[#f97316]/[0.12] border border-[#f97316]/[0.22] flex items-center justify-center flex-shrink-0">
+        {/* <div className="w-[34px] h-[34px] rounded-[10px] bg-[#f97316]/[0.12] border border-[#f97316]/[0.22] flex items-center justify-center flex-shrink-0">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
             <circle cx="12" cy="12" r="10" stroke="#f97316" strokeWidth="2" />
             <path d="M8 12h8M12 8v8" stroke="#f97316" strokeWidth="2" strokeLinecap="round" />
           </svg>
-        </div>
+        </div> */}
+
+        <Image src={logo}
+          alt="SpeakSmart Logo"
+          width={40} 
+          height={10} 
+          className="invert object-cover" />
+
         <span className="text-white text-[0.95rem] font-semibold tracking-tight">
           SpeakSmart
         </span>

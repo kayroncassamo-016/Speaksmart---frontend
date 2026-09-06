@@ -1,3 +1,4 @@
+import { AppsProblem } from "./sections/AppsProblem";
 import { Features } from "./sections/Features";
 import { HeaderAnnouncement } from "./sections/HeaderAnnouncement";
 import { HeroSection } from "./sections/Herosection";
@@ -11,6 +12,7 @@ export default function LandingPage() {
         <HeaderAnnouncement/>
         <NavBar/>
         <HeroSection/>
+        <AppsProblem/>
         <HowItWorksSection/>
         <PreSection/>
         <Features/>

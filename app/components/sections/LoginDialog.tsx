@@ -2,6 +2,8 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import Image from "next/image";
+import logo from "../logo/speaksmart.png";
 
 interface LoginDialogProps {
    open: boolean;
@@ -51,12 +53,17 @@ export function LoginDialog({ open, onClose }: LoginDialogProps) {
               {/* Logo */}
               <div className="flex justify-center mb-6">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-[9px] bg-[#f97316]/[0.12] border border-[#f97316]/[0.22] flex items-center justify-center">
+                  {/* <div className="w-8 h-8 rounded-[9px] bg-[#f97316]/[0.12] border border-[#f97316]/[0.22] flex items-center justify-center">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
                       <circle cx="12" cy="12" r="10" stroke="#f97316" strokeWidth="2"/>
                       <path d="M8 12h8M12 8v8" stroke="#f97316" strokeWidth="2" strokeLinecap="round"/>
                     </svg>
-                  </div>
+                  </div> */}
+                   <Image src={logo}
+                        alt="SpeakSmart Logo"
+                        width={40} 
+                        height={10} 
+                        className="invert object-cover" />
                   <span className="text-white font-semibold text-[0.95rem] tracking-tight">SpeakSmart</span>
                 </div>
               </div>
