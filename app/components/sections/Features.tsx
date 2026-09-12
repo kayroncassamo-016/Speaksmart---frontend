@@ -82,10 +82,10 @@ const features = [
 ];
 
 const stats = [
-  { value: "12k+", label: "Users" },
-  { value: "98%", label: "Satisfaction" },
-  { value: "4.9★", label: "Rating" },
-  { value: "3×", label: "Faster prep" },
+  { value: "12k+", label: "On the waitlist" },
+  { value: "95%", label: "Satisfaction" },
+  { value: "4.6★", label: "Rating" },
+  { value: "20+", label: "Countries" },
 ];
 
 export function Features() {
@@ -165,14 +165,15 @@ export function Features() {
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ delay: 0.65, duration: 0.5 }}
-          className="mt-14 flex flex-wrap justify-center gap-x-16 gap-y-6"
+          className="mt-14 flex flex-wrap justify-center gap-x-10 sm:gap-x-16 gap-y-6"
         >
           {stats.map((s) => (
             <div key={s.label} className="flex flex-col items-center gap-1">
-              <span className="text-[1.7rem] font-extrabold text-white tracking-[-0.02em]">
+              <span className="text-[1.1rem] sm:text-[1.5rem] md:text-[1.9rem] lg:text-[2.3rem]
+               font-extrabold text-white tracking-[-0.02em]">
                 {s.value}
               </span>
-              <span className="text-white/22 text-[0.75rem]">{s.label}</span>
+              <span className="text-white/22 text-[0.75rem] sm:text-[1.2rem]">{s.label}</span>
             </div>
           ))}
         </motion.div>
