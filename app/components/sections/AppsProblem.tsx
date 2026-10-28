@@ -25,9 +25,9 @@ export function AppsProblem() {
   return (
     <section ref={ref} className="relative bg-[#0c0c0e] py-28 px-6 overflow-hidden">
       {/* Glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] pointer-events-none"
+      {/* <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] pointer-events-none"
         style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(249,115,22,0.08) 0%, transparent 65%)" }}
-      />
+      /> */}
 
       <div className="relative z-10 max-w-[1100px] mx-auto">
         {/* Header */}

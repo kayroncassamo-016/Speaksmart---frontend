@@ -84,7 +84,7 @@ const features = [
 const stats = [
   { value: "12k+", label: "On the waitlist" },
   { value: "95%", label: "Satisfaction" },
-  { value: "4.6★", label: "Rating" },
+  { value: "4.6 ★", label: "Rating" },
   { value: "20+", label: "Countries" },
 ];
 
@@ -93,7 +93,9 @@ export function Features() {
   const inView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
-    <section ref={ref} className="relative bg-[#0c0c0e] py-28 px-6 overflow-hidden">
+    <section ref={ref} 
+    className="relative bg-[#0c0c0e] py-28 px-6 overflow-hidden"
+    id="features">
       {/* Glow */}
       <div className="absolute -right-40 top-1/4 w-96 h-96 rounded-full bg-[#f97316]/[0.05] blur-[120px] pointer-events-none" />
 
@@ -114,12 +116,12 @@ export function Features() {
               <span className="text-[#f97316]">confidently</span>
             </h2>
           </div>
-          <a
+          {/* <a
             href="#"
             className="flex-shrink-0 text-[0.82rem] text-white/22 border border-white/[0.07] px-[18px] py-2.5 rounded-[9px] hover:border-white/15 hover:text-white/50 transition-all self-start md:self-auto"
           >
             View all features →
-          </a>
+          </a> */}
         </motion.div>
 
         {/* Bento grid */}

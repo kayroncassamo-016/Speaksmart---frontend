@@ -62,8 +62,9 @@ export function HowItWorksSection() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} className="relative bg-[#0c0c0e] py-28 px-6 overflow-hidden">
-      {/* Grid texture */}
+    <section ref={ref} 
+    className="relative bg-[#0c0c0e] py-28 px-6 overflow-hidden"
+    id="how-it-works">
       <div
         className="absolute inset-0 pointer-events-none opacity-[0.022]"
         style={{
@@ -74,7 +75,7 @@ export function HowItWorksSection() {
       />
 
       {/* Glow */}
-      <div className="absolute -left-32 top-1/3 w-72 h-72 rounded-full bg-[#f97316]/[0.08] blur-[96px] pointer-events-none" />
+      {/* <div className="absolute -left-32 top-1/3 w-72 h-72 rounded-full bg-[#f97316]/[0.08] blur-[96px] pointer-events-none" /> */}
 
       <div className="relative z-10 max-w-[1100px] mx-auto">
         {/* Header */}

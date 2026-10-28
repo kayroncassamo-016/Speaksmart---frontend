@@ -1,77 +1,4 @@
-// "use client";
 
-// import { useState } from "react";
-// import { LoginDialog } from "./LoginDialog";
-// import Image from "next/image";
-// import logo from "../logo/speaksmart.png";
-
-// const links = ["How It Works", "Features", "Pricing", "Results"];
-
-// export function NavBar() {
-
-// const [openLoginDialog, setOpenLoginDialog] = useState(false);
- 
-
-//   return (
-//     <>
-
-//     <LoginDialog open={openLoginDialog} onClose={setOpenLoginDialog}/>
-
-
-//     <nav className="fixed top-0 left-0 right-0 z-20 flex items-center backdrop-blur-lg
-//     justify-between px-8 py-3.5 border-b border-white/[0.05] bg-[#0c0c0e]">
-    
-//       {/* Logo */}
-//       <div className="flex items-center gap-2.5">
-//         <Image src={logo}
-//           alt="SpeakSmart Logo"
-//           width={40} 
-//           height={10} 
-//           className="invert object-cover" />
-
-//         <span className="text-white text-[0.95rem] font-semibold tracking-tight">
-//           SpeakSmart
-//         </span>
-//       </div>
-
-//       {/* Links */}
-//       <ul className="hidden md:flex items-center gap-8 list-none">
-//         {links.map((l) => (
-//           <li key={l}>
-//             <a
-//               href="#"
-//               className="text-[0.85rem] text-white/40 hover:text-white/90 transition-colors"
-//             >
-//               {l}
-//             </a>
-//           </li>
-//         ))}
-//       </ul>
-
-//       {/* Actions */}
-//       <div className="flex items-center gap-2.5">
-//         <a
-//           href="#"
-//           className="text-[0.85rem] text-white/40 px-4 py-2 hover:text-white transition-colors"
-//           onClick={()=>setOpenLoginDialog(true)}
-//         >
-//           Log in
-//         </a>
-//         <a
-//           href="#"
-//           className="text-[0.85rem] font-medium bg-[#f97316] text-white px-[18px] 
-//           py-2 rounded-[9px] hover:bg-[#ea6c0a] 
-//           transition-all hover:-translate-y-px"
-//           onClick={()=>setOpenLoginDialog(true)}
-//         >
-//           Sign up
-//         </a>
-//       </div>
-   
-//     </nav>
-//     </>
-//   );
-// }
 
 "use client";
 
@@ -82,7 +9,12 @@ import { LoginDialog } from "./LoginDialog";
 import Image from "next/image";
 import logo from "../logo/speaksmart.png";
 
-const links = ["How It Works", "Features", "Pricing", "Results"];
+const links = [
+  { label: "How It Works", id: "#how-it-works" },
+  { label: "Features", id: "#features" },
+  { label: "Pricing", id: "#pricing" },
+  { label: "Join the waitlist", id: "#waitlist" },
+];
 
 
 
@@ -112,9 +44,9 @@ export function NavBar() {
         {/* Desktop links */}
         <ul className="hidden md:flex items-center gap-8 list-none">
           {links.map((l) => (
-            <li key={l}>
-              <a href="#" className="text-[0.85rem] text-white/40 hover:text-white/90 transition-colors">
-                {l}
+            <li key={l.id}>
+              <a href={l.id} className="text-[0.85rem] text-white/40 hover:text-white/90 transition-colors">
+                {l.label}
               </a>
             </li>
           ))}
@@ -190,17 +122,17 @@ export function NavBar() {
               <ul className="flex flex-col px-4 py-6 gap-1 list-none flex-1">
                 {links.map((l, i) => (
                   <motion.li
-                    key={l}
+                    key={l.id}
                     initial={{ opacity: 0, x: 16 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.05 + i * 0.06, duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                   >
                     <a
-                      href="#"
+                      href={l.id}
                       onClick={() => setMenuOpen(false)}
                       className="flex items-center px-3 py-3 rounded-xl text-white/50 text-[0.9rem] hover:text-white hover:bg-white/[0.05] transition-all"
                     >
-                      {l}
+                      {l.label}
                     </a>
                   </motion.li>
                 ))}
@@ -209,7 +141,10 @@ export function NavBar() {
               {/* Bottom actions */}
               <div className="flex flex-col gap-3 px-6 py-6 border-t border-white/[0.06]">
                 <button
-                  onClick={() => { ()=>setOpenLoginDialog(true); setMenuOpen(false); }}
+                  onClick={() => {
+                    setOpenLoginDialog(true);
+                    setMenuOpen(false);
+                  }}
                   className="w-full py-2.5 rounded-xl text-[0.88rem] text-white/50 border border-white/[0.08] hover:text-white hover:border-white/20 transition-all"
                 >
                   Log in

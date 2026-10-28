@@ -20,7 +20,6 @@ export default function LandingPage() {
         <Features/>
         <PricingSection/>
         <Footer/>
-
     </div>
   )
 

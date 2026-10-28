@@ -1,8 +1,13 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { useEffect, useRef } from "react";
 import Image from "next/image";
+
+import { useState, type FormEvent } from "react";
+import { joinWaitlist } from "@/app/services/waitlistService";
+import { getApiErrorMessage } from "@/app/services/api";
+
 
 const AVATARS = [
   "https://i.pravatar.cc/40?u=pr1",
@@ -19,13 +24,42 @@ const container = {
   show: { transition: { staggerChildren: 0.1 } },
 };
 
-const item = {
+const item:Variants = {
   hidden: { opacity: 0, y: 24 },
   show: { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] } },
 };
 
 export function HeroSection() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
+ 
+const [email, setEmail] = useState("");
+const [submitted, setSubmitted] = useState(false);
+const [isSubmitting, setIsSubmitting] = useState(false);
+const [errorMessage, setErrorMessage] = useState("");
+
+const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+
+  if (isSubmitting) return;
+
+  setIsSubmitting(true);
+  setErrorMessage("");
+
+  try {
+    await joinWaitlist(email);
+    setSubmitted(true);
+    setEmail("");
+  } catch (error) {
+    setErrorMessage(getApiErrorMessage(error));
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+
+
+
+
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -78,13 +112,13 @@ export function HeroSection() {
       />
 
       {/* Radial glow */}
-      <div
+      {/* <div
         className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[600px] pointer-events-none"
         style={{
           background:
             "radial-gradient(ellipse at 50% 30%, rgba(249,115,22,0.13) 0%, transparent 65%)",
         }}
-      />
+      /> */}
 
       {/* Content */}
       <motion.div
@@ -124,7 +158,7 @@ export function HeroSection() {
         </motion.p>
 
         {/* CTAs */}
-        <motion.div  className="flex flex-wrap gap-2.5 justify-center mb-14">
+        {/* <motion.div  className="flex flex-wrap gap-2.5 justify-center mb-14">
           <button className="bg-[#f97316] text-white text-[0.9rem] font-semibold px-7 py-3 rounded-[11px] border-none cursor-pointer transition-all hover:bg-[#ea6c0a] hover:-translate-y-0.5 hover:shadow-[0_8px_28px_rgba(249,115,22,0.38)]">
             Start Free Now
           </button>
@@ -134,7 +168,60 @@ export function HeroSection() {
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
           </button>
+        </motion.div> */}
+
+        
+        {/* Waitlist CTA */}
+        <motion.div
+         variants={item}
+          className="w-full max-w-[460px] mb-12"
+          id="join-list"
+        >
+          {!submitted ? (
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-col sm:flex-row gap-3 w-full"
+            >
+              <input
+                type="email"
+                required
+                placeholder="Enter your email address"
+                aria-label="Email address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="min-w-0 flex-1 bg-[#1a1a1e] border border-white/[0.12] focus:border-[#f97316]/60 focus:outline-none text-white placeholder:text-white/30 text-sm px-4 py-3.5 rounded-xl transition-colors"
+              />
+
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="shrink-0 bg-[#f97316] text-white text-sm font-semibold px-6 py-3.5 rounded-xl cursor-pointer transition-all hover:bg-[#ea6c0a] hover:-translate-y-0.5 hover:shadow-[0_8px_28px_rgba(249,115,22,0.3)] disabled:opacity-60 disabled:cursor-not-allowed"
+              >
+                {isSubmitting ? "Joining..." : "Join the waitlist"}
+              </button>
+            </form>
+          ) : (
+            <div className="flex items-center gap-3 bg-[#f97316]/10 border border-[#f97316]/20 px-5 py-3 rounded-xl">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f97316" strokeWidth="2.5">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                <span className="text-[#f97316] text-[0.88rem] font-medium">
+                  You're on the list! We'll be in touch.
+                </span>
+            </div>
+          )}
+
+          {errorMessage && (
+            <p role="alert" className="mt-3 text-sm text-red-400 font-bold">
+              {errorMessage}
+            </p>
+          )}
+
+          <p className="mt-3 text-center text-sm text-white/35">
+            Get notified when SpeakSmart launches. No spam.
+          </p>
         </motion.div>
+
 
         {/* Social proof */}
         <motion.div className="flex flex-col items-center gap-3">

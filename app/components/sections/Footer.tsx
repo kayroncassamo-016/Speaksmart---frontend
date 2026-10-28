@@ -1,13 +1,14 @@
 "use client";
-
+import { joinWaitlist } from "@/app/services/waitlistService";
+import { getApiErrorMessage } from "@/app/services/api"
 import { useState } from "react";
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, FormEvent } from "react";
 import Image from "next/image";
 import logo from "../logo/speaksmart.png";
 
 const footerLinks = {
-  Product: ["How It Works", "Features", "Pricing", "Results"],
+  Product: ["How It Works", "Features", "Pricing", ],
   Company: ["About", "Blog", "Careers", "Press"],
   Legal: ["Privacy Policy", "Terms of Service", "Cookie Policy"],
 };
@@ -17,22 +18,39 @@ export function Footer() {
   const inView = useInView(ref, { once: true, margin: "-40px" });
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const  [loading, setLoading] = useState(false);
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  e.preventDefault()
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email) return;
-    // TODO: connect to backend (Resend, Supabase, etc.)
-    setSubmitted(true);
-    setEmail("");
-  };
+  if (isSubmitting) return
+
+  setIsSubmitting(true)
+  setErrorMessage("")
+  setLoading(true)
+  try {
+    await joinWaitlist(email)
+    setSubmitted(true)
+    setEmail("")
+  } catch (error) {
+    setErrorMessage(getApiErrorMessage(error))
+  } finally {
+    setIsSubmitting(false)
+    setLoading(false)
+  }
+}
+
 
   return (
-    <footer ref={ref} className="relative bg-[#0c0c0e] border-t border-white/[0.06] overflow-hidden">
+    <footer ref={ref} 
+    className="relative bg-[#0c0c0e] border-t border-white/[0.06] overflow-hidden"
+     id="waitlist">
       {/* Glow */}
-      <div
+      {/* <div
         className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] pointer-events-none"
         style={{ background: "radial-gradient(ellipse at 50% 100%, rgba(249,115,22,0.07) 0%, transparent 65%)" }}
-      />
+      /> */}
 
       <div className="relative z-10 max-w-[1100px] mx-auto px-6 py-20">
 
@@ -44,14 +62,14 @@ export function Footer() {
           className="flex flex-col md:flex-row md:items-center justify-between gap-8 pb-14 border-b border-white/[0.06]"
         >
           <div className="max-w-[420px]">
-            <p className="text-[#f97316] text-[0.7rem] font-bold tracking-[0.18em] uppercase mb-2">
+            <p className="mt-8 text-[#f97316] text-[0.7rem] font-bold tracking-[0.18em] uppercase mb-2">
               Early Access
             </p>
             <h3 className="text-white text-[1.6rem] font-extrabold tracking-tight leading-[1.15] mb-2">
               Join the waitlist
             </h3>
             <p className="text-white/35 text-[0.85rem] font-light leading-relaxed">
-              Be the first to know when we launch. No spam — just one email when it's ready.
+              Be the first to know when we launch. No spam, just one email when it's ready.
             </p>
           </div>
 
@@ -61,19 +79,39 @@ export function Footer() {
           >
             {!submitted ? (
               <>
+               <div className="flex flex-col gap-2">
                 <input
                   type="email"
                   required
                   placeholder="your@email.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="flex-1 bg-[#1a1a1e] border border-white/[0.08] focus:border-[#f97316]/50 focus:outline-none text-white placeholder:text-white/22 text-[0.88rem] px-4 py-3 rounded-xl transition-colors"
+                  className="flex-1 bg-[#1a1a1e] border border-white/[0.08] focus:border-[#f97316]/50 focus:outline-none
+                   text-white placeholder:text-white/22 text-[0.88rem] px-4 py-3 rounded-xl transition-colors"
                 />
+          
+                {errorMessage && (
+                  <p role="alert" className="text-red-400 text-sm font-bold">
+                    {errorMessage}
+                  </p>
+                )}
+                </div>
+
                 <button
                   type="submit"
-                  className="flex-shrink-0 bg-[#f97316] hover:bg-[#ea6c0a] text-white font-semibold text-[0.88rem] px-6 py-3 rounded-xl transition-all hover:shadow-[0_8px_24px_rgba(249,115,22,0.35)] hover:-translate-y-0.5"
+                  disabled={isSubmitting}
+                  className="w-40 h-13 flex-shrink-0 bg-[#f97316] hover:bg-[#ea6c0a] text-white 
+                  font-semibold text-[0.88rem] px-6 py-3 
+                  rounded-xl transition-all 
+                  hover:shadow-[0_8px_24px_rgba(249,115,22,0.35)] 
+                  hover:-translate-y-0.5 disabled:opacity-60 
+                  disabled:cursor-not-allowed"
                 >
-                  Join waitlist
+                  {isSubmitting ? 
+                  
+                  "Joining..."
+                  
+                  : "Join waitlist"}
                 </button>
               </>
             ) : (
@@ -91,6 +129,8 @@ export function Footer() {
                 </span>
               </motion.div>
             )}
+
+          
           </form>
         </motion.div>
 
