@@ -1,5 +1,6 @@
 
 import { api } from "./api"
+import axios from "axios"
 
 export interface WaitlistData {
   id: number
@@ -16,7 +17,21 @@ export async function joinWaitlist(email: string) {
   return response.data
 }
 
+// export async function getWaitlist(): Promise<WaitlistData[]> {
+//   const response = await api.get<WaitlistData[]>("/waitlist")
+//   return response.data
+// }
+
+
+
+
 export async function getWaitlist(): Promise<WaitlistData[]> {
-  const response = await api.get<WaitlistData[]>("/waitlist")
+  const response = await axios.get<WaitlistData[]>(
+    "/api/admin/waitlist",
+    {
+      withCredentials: true,
+    }
+  )
+
   return response.data
 }
