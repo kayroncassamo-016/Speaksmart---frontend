@@ -17,14 +17,6 @@ export async function joinWaitlist(email: string) {
   return response.data
 }
 
-// export async function getWaitlist(): Promise<WaitlistData[]> {
-//   const response = await api.get<WaitlistData[]>("/waitlist")
-//   return response.data
-// }
-
-
-
-
 export async function getWaitlist(): Promise<WaitlistData[]> {
   const response = await axios.get<WaitlistData[]>(
     "/api/admin/waitlist",

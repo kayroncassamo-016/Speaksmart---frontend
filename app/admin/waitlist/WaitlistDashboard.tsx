@@ -9,7 +9,7 @@ import {
 import { getApiErrorMessage } from "@/app/services/api"
 import Image from "next/image"
 import logo from "@/app/components/logo/speaksmart.png"
-import { api } from "@/app/services/api"
+import { useRouter } from "next/navigation"
 import axios from "axios"
 
 /* ─── Table design tokens ────────────────────────────────────────────────────
@@ -49,55 +49,9 @@ export default function WaitlistDashboard() {
   const [isLoading, setIsLoading] = useState(true)
   const [errorMessage, setErrorMessage] = useState("")
   const [reloadKey, setReloadKey] = useState(0)
-
-
-
-const [isCheckingSession, setIsCheckingSession] = useState(true)
-const [isAuthenticated, setIsAuthenticated] = useState(false)
-
-// useEffect(() => {
-//   let cancelled = false
-
-//   async function initializePage() {
-//     setIsCheckingSession(true)
-
-//     try {
-//       await api.get("/admin/session")
-
-//       if (cancelled) return
-
-//       setIsAuthenticated(true)
-
-//       setIsLoading(true)
-//       setErrorMessage("")
-
-//       const data = await getWaitlist()
-
-//       if (!cancelled) {
-//         setEntries(data)
-//       }
-//     } catch (error) {
-//       if (cancelled) return
-
-//       setIsAuthenticated(false)
-
-//       if (axios.isAxiosError(error) && error.response?.status !== 401) {
-//         setErrorMessage(getApiErrorMessage(error))
-//       }
-//     } finally {
-//       if (!cancelled) {
-//         setIsCheckingSession(false)
-//         setIsLoading(false)
-//       }
-//     }
-//   }
-
-//   void initializePage()
-
-//   return () => {
-//     cancelled = true
-//   }
-// }, [reloadKey])
+  
+  const [isLoggingOut, setIsLoggingOut] = useState(false)
+  
 
 useEffect(() => {
   let cancelled = false
@@ -139,26 +93,22 @@ useEffect(() => {
       minute: "2-digit",
     }).format(new Date(value))
 
-//   if (isCheckingSession) {
-//   return (
-//     <main className="flex min-h-screen items-center justify-center bg-[#0c0c0e]">
-//       <div className="size-7 animate-spin rounded-full border-2 border-white/10 border-t-emerald-500" />
-//     </main>
-//   )
-// }
 
-// if (!isAuthenticated) {
-//   return (
-//     <main className="flex min-h-screen items-center justify-center bg-[#0c0c0e] px-4">
-//       <div className="text-center">
-//         <h1 className="text-2xl font-semibold text-white">404</h1>
-//         <p className="mt-2 text-sm text-gray-400">
-//           This page could not be found.
-//         </p>
-//       </div>
-//     </main>
-//   )
-// }
+const router = useRouter()
+
+async function handleLogout() {
+  try {
+    setIsLoggingOut(true)
+
+    await axios.post("/api/admin/logout")
+
+    router.replace("/ss-control-7x9k/access")
+    router.refresh()
+  } catch (error) {
+    console.error("Logout failed:", error)
+    setIsLoggingOut(false)
+  }
+}
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#0c0c0e] px-4 py-8 text-gray-900 antialiased sm:px-6 lg:px-10 lg:py-14">
@@ -202,7 +152,7 @@ useEffect(() => {
               Manage and review people interested in SpeakSmart.
             </p>
           </div>
-
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
           <button
             type="button"
             onClick={() => setReloadKey((current) => current + 1)}
@@ -231,6 +181,16 @@ useEffect(() => {
             </svg>
             Refresh
           </button>
+
+          <button
+              type="button"
+              onClick={handleLogout}
+              disabled={isLoggingOut}
+              className="inline-flex h-10 items-center justify-center rounded-xl border border-red-500/20 bg-red-500/10 px-4 text-sm font-semibold text-red-400 transition hover:bg-red-500/20 disabled:opacity-50"
+            >
+              {isLoggingOut ? "Signing out..." : "Sign out"}
+          </button>
+          </div>
         </header>
 
         {/* Summary */}
