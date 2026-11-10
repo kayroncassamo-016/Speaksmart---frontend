@@ -13,7 +13,7 @@ const links = [
   { label: "How It Works", id: "#how-it-works" },
   { label: "Features", id: "#features" },
   { label: "Pricing", id: "#pricing" },
-  { label: "Join the waitlist", id: "#waitlist" },
+  { label: "Early Access", id: "#waitlist" },
 ];
 
 
@@ -54,7 +54,7 @@ export function NavBar() {
 
         {/* Desktop actions */}
         <div className="hidden md:flex items-center gap-2.5">
-          <button
+          {/* <button
             onClick={()=> setOpenLoginDialog(true)}
             className="text-[0.85rem] text-white/40 px-4 py-2 hover:text-white transition-colors"
           >
@@ -64,7 +64,15 @@ export function NavBar() {
           onClick={()=> setOpenLoginDialog(true)}
           className="text-[0.85rem] font-medium bg-[#f97316] text-white px-[18px] py-2 rounded-[9px] hover:bg-[#ea6c0a] transition-all hover:-translate-y-px">
             Sign up
+          </button> */}
+          <button 
+          
+          className="text-[0.85rem] font-medium bg-[#f97316] text-white px-[18px] py-2 rounded-[9px] hover:bg-[#ea6c0a] transition-all hover:-translate-y-px">
+            <a href="#waitlist">
+                Join the waitlist
+            </a>
           </button>
+
         </div>
 
         {/* Mobile hamburger */}
@@ -140,7 +148,7 @@ export function NavBar() {
 
               {/* Bottom actions */}
               <div className="flex flex-col gap-3 px-6 py-6 border-t border-white/[0.06]">
-                <button
+                {/* <button
                   onClick={() => {
                     setOpenLoginDialog(true);
                     setMenuOpen(false);
@@ -151,6 +159,9 @@ export function NavBar() {
                 </button>
                 <button className="w-full py-2.5 rounded-xl text-[0.88rem] font-semibold bg-[#f97316] text-white hover:bg-[#ea6c0a] transition-all">
                   Sign up
+                </button> */}
+                 <button className="w-full py-2.5 rounded-xl text-[0.88rem] font-semibold bg-[#f97316] text-white hover:bg-[#ea6c0a] transition-all">
+                   Join the waitlist
                 </button>
               </div>
             </motion.div>

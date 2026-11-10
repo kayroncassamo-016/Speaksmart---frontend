@@ -83,9 +83,9 @@ const features = [
 
 const stats = [
   { value: "12k+", label: "On the waitlist" },
-  { value: "95%", label: "Satisfaction" },
+  // { value: "95%", label: "Satisfaction" },
   { value: "4.6 ★", label: "Rating" },
-  { value: "20+", label: "Countries" },
+  { value: "5+", label: "Countries" },
 ];
 
 export function Features() {

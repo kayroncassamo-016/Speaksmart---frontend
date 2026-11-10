@@ -7,10 +7,22 @@ import { useRef, FormEvent } from "react";
 import Image from "next/image";
 import logo from "../logo/speaksmart.png";
 
+// const footerLinks = {
+//   Product: ["How It Works", "Features", "Pricing", ],
+//   Company: ["About", "Blog", "Careers", "Press"],
+//   Legal: ["Privacy Policy", "Terms of Service", "Cookie Policy"],
+// };
+
 const footerLinks = {
-  Product: ["How It Works", "Features", "Pricing", ],
-  Company: ["About", "Blog", "Careers", "Press"],
-  Legal: ["Privacy Policy", "Terms of Service", "Cookie Policy"],
+  Product: [
+    { label: "How It Works", href: "#how-it-works" },
+    { label: "Features", href: "#features" },
+    { label: "Early Access", href: "#waitlist" },
+  ],
+  Legal: [
+    { label: "Privacy Policy", href: "/privacy" },
+    { label: "Terms of Service", href: "/terms" },
+  ],
 };
 
 export function Footer() {
@@ -168,12 +180,12 @@ export function Footer() {
               </p>
               <ul className="flex flex-col gap-2.5">
                 {items.map((item) => (
-                  <li key={item}>
+                  <li key={item.label}>
                     <a
-                      href="#"
+                      href={item.href}
                       className="text-white/30 text-[0.83rem] font-light hover:text-white/70 transition-colors"
                     >
-                      {item}
+                      {item.label}
                     </a>
                   </li>
                 ))}

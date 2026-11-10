@@ -224,7 +224,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 
 
         {/* Social proof */}
-        <motion.div className="flex flex-col items-center gap-3">
+         {/*<motion.div className="flex flex-col items-center gap-3">
           <div className="flex items-center gap-3">
             <div className="flex">
               {AVATARS.map((src, i) => (
@@ -241,10 +241,10 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
             <div>
               <div className="text-[#f97316] text-[0.75rem] tracking-[2px]">★★★★★</div>
               <div className="text-white/40 text-[0.78rem]">Loved by 20,000+ intermediate non-native speakers</div>
-            </div>
-          </div>
+            </div> 
+          </div>*/}
 
-          <div className="mt-3 flex flex-col items-center gap-1.5">
+          {/* <div className="mt-3 flex flex-col items-center gap-1.5">
             <span className="text-white/[0.18] text-[0.68rem] tracking-[0.14em] uppercase">
               People also tried with no success to perform better English on these apps:
             </span>
@@ -256,8 +256,8 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
                 </span>
               ))}
             </div>
-          </div>
-        </motion.div>
+          </div> 
+        </motion.div>*/}
       </motion.div>
 
       {/* Bottom fade */}

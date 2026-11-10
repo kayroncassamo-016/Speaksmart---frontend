@@ -146,10 +146,12 @@ export function HowItWorksSection() {
           transition={{ delay: 0.6, duration: 0.5 }}
           className="mt-12 flex justify-center"
         >
-          <a
+          {/* <a
             href="#"
-            className="group flex items-center gap-2 text-[0.85rem] text-white/22 hover:text-[#f97316] transition-colors duration-300"
-          >
+            className="group flex items-center 
+            gap-2 text-[0.85rem] text-white/22 
+            hover:text-[#f97316] transition-colors duration-300" >
+        
             See it in action
             <svg
               width="13" height="13" viewBox="0 0 24 24" fill="none"
@@ -158,7 +160,7 @@ export function HowItWorksSection() {
             >
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
-          </a>
+          </a> */}
         </motion.div>
       </div>
     </section>
