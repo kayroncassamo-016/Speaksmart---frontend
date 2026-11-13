@@ -202,13 +202,13 @@ export function Footer() {
           className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 text-white/20 text-[0.76rem]"
         >
           <span>© {new Date().getFullYear()} SpeakSmart. All rights reserved.</span>
-          <div className="flex items-center gap-5">
+          {/* <div className="flex items-center gap-5">
             {["Twitter", "LinkedIn", "GitHub"].map((s) => (
               <a key={s} href="#" className="hover:text-white/50 transition-colors">
                 {s}
               </a>
             ))}
-          </div>
+          </div> */}
         </motion.div>
 
       </div>
