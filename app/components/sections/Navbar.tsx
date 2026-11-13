@@ -161,7 +161,10 @@ export function NavBar() {
                   Sign up
                 </button> */}
                  <button className="w-full py-2.5 rounded-xl text-[0.88rem] font-semibold bg-[#f97316] text-white hover:bg-[#ea6c0a] transition-all">
-                   Join the waitlist
+                   
+                   <a href="#waitlist">
+                    Join the waitlist
+                    </a>
                 </button>
               </div>
             </motion.div>
