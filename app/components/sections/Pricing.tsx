@@ -320,18 +320,17 @@ export function PricingSection() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
 
-  // "Coming soon" notice. `toastKey` changes on every click so the
-  // notice re-appears and its timer restarts if the user clicks again.
-  const [showToast, setShowToast] = useState(false);
-  const [toastKey, setToastKey] = useState(0);
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+ const [comingSoonPlan, setComingSoonPlan] = useState<string | null>(null);
+ const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  function handlePlanClick() {
-    if (timerRef.current) clearTimeout(timerRef.current);
-    setToastKey((k) => k + 1);
-    setShowToast(true);
-    timerRef.current = setTimeout(() => setShowToast(false), TOAST_DURATION_MS);
-  }
+function handlePlanClick(planName: string) {
+  if (timerRef.current) clearTimeout(timerRef.current);
+  setComingSoonPlan(planName);
+  timerRef.current = setTimeout(
+    () => setComingSoonPlan(null),
+    TOAST_DURATION_MS
+  );
+}
 
   useEffect(() => {
     return () => {
@@ -369,6 +368,7 @@ export function PricingSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 items-stretch max-w-[460px] md:max-w-none mx-auto">
           {plans.map((plan, i) => {
             const isAnnual = plan.tag === "Best Value";
+            const isActive = comingSoonPlan === plan.name;
             return (
               <motion.div
                 key={plan.name}
@@ -469,17 +469,29 @@ export function PricingSection() {
                   {/* CTA (always pinned to the bottom) */}
                   <button
                     type="button"
-                    onClick={handlePlanClick}
+                    onClick={() => handlePlanClick(plan.name)}
+                    aria-live="polite"
                     className={`mt-auto w-full py-3.5 rounded-xl text-[0.9rem] font-semibold transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 ${
-                      plan.ctaStyle === "orange"
+                      isActive
+                        ? `bg-[#3f3f46] text-white ${
+                            plan.ctaStyle === "outline" ? "border border-transparent" : ""
+                          }`
+                        : plan.ctaStyle === "orange"
                         ? "bg-[#f97316] text-white hover:bg-[#ea6c0a] hover:shadow-[0_8px_24px_rgba(249,115,22,0.4)]"
                         : plan.ctaStyle === "purple"
                         ? "bg-[#6366f1] text-white hover:bg-[#5457e0] hover:shadow-[0_8px_24px_rgba(99,102,241,0.4)]"
                         : "bg-transparent text-white border border-white/[0.12] hover:border-white/25 hover:bg-white/[0.04]"
                     }`}
                   >
-                    {plan.cta}
-                  </button>
+                    {isActive ? (
+                      <span className="inline-flex items-center justify-center gap-2">
+                        <Clock className="h-4 w-4 flex-shrink-0 text-white/60" />
+                        Coming soon
+                      </span>
+                    ) : (
+                      plan.cta
+                    )}
+                </button>
                 </div>
               </motion.div>
             );
@@ -497,29 +509,7 @@ export function PricingSection() {
         </motion.p>
       </div>
 
-      {/* "Coming soon" notice (gray) */}
-      <div
-        className="pointer-events-none fixed inset-x-0 bottom-6 z-50 flex justify-center px-4"
-        style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
-      >
-        <AnimatePresence>
-          {showToast && (
-            <motion.div
-              key={toastKey}
-              role="status"
-              aria-live="polite"
-              initial={{ opacity: 0, y: 12, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 8 }}
-              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-              className="pointer-events-auto flex items-center gap-2.5 rounded-xl border border-white/10 bg-[#3f3f46] px-4 py-3 text-[0.88rem] font-medium text-white shadow-[0_16px_48px_rgba(0,0,0,0.5)]"
-            >
-              <Clock className="h-4 w-4 flex-shrink-0 text-white/60" />
-              Coming soon
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+  
     </section>
   );
 }
